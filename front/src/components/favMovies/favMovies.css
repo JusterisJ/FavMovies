@@ -1,0 +1,33 @@
+.newMovie-div {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.favMovies-container {
+  text-align: center;
+  justify-content: center;
+}
+
+.addMovie-input {
+  height: 4vh;
+  width: 30vw;
+}
+.addMovie-button {
+  height: 4vh;
+  width: 30%;
+  margin-top: 2vh;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+}
+
+.moviesList-container {
+  text-align: start;
+}
+.movie {
+}
+
+.movie-button {
+  background-color: white;
+  margin-right: 0.5vw;
+  border: none;
+}

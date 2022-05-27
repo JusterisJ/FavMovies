@@ -1,0 +1,33 @@
+.form-register {
+  display: flex;
+  justify-content: center;
+}
+
+.reg-input {
+  height: 35px;
+  width: 30vw;
+  margin-top: 2vh;
+}
+
+.reg-input-top {
+  margin-top: 5vh;
+}
+
+.registration-button-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+}
+.registration-button {
+  height: 50px;
+  width: 8vw;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  border: 1px solid lightgray;
+}
+
+.registation-title {
+  margin-top: 3vh;
+  font-size: 2em;
+  text-align: center;
+}
