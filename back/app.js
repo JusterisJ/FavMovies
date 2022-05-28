@@ -2,6 +2,7 @@ const express = require("express");
 const { get } = require("http");
 
 const usersRoutes = require("./routes/usersRoutes");
+const moviesRoutes = require("./routes/moviesRoutes");
 
 const cors = require("cors");
 const app = express();
@@ -18,5 +19,6 @@ app.options("/:id/:subID", cors()); // enable pre-flight request
 app.use(express.json());
 
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/movies", moviesRoutes);
 
 module.exports = app;

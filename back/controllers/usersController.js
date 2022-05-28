@@ -159,3 +159,26 @@ exports.deleteFavMovie = async (req, res) => {
     });
   }
 };
+
+exports.updateFavMovie = async (req, res) => {
+  console.log(req.params.id, req.params.movieId, req.body);
+  try {
+    const result = await Users.findOneAndUpdate(
+      { _id: req.params.id, "favMovies._id": req.params.movieId },
+      {
+        $set: {
+          "favMovies.$.title": req.body.title,
+        },
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (err) {
+    res.stauts(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};

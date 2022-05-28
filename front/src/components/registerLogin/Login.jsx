@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useGlobalUserContext, UserContext } from "../context/UserContext";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import swal from "sweetalert";
 
 function Login() {
@@ -27,7 +27,7 @@ function Login() {
         });
         if (res.status == 200) {
           setTimeout(() => {
-            navigate("/allMovies");
+            navigate("/favMovies");
           }, 1000);
         }
       })
@@ -45,7 +45,6 @@ function Login() {
     <div className="form-register">
       <form className="Login-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="registation-title">Prisijungimas</div>
-
         <div className="reg-input-div">
           <input
             className="reg-input reg-input-top"
@@ -62,7 +61,6 @@ function Login() {
           />
           <span className="error text-danger fw-light">{errors.email?.message}</span>
         </div>
-
         <div className="form-input">
           <input
             className="reg-input"
@@ -83,6 +81,7 @@ function Login() {
           />
           <span className="error text-danger fw-light">{errors.password?.message}</span>
         </div>
+        Neturite paskyros? <Link to="/register">Registruotis</Link>
         <div className="registration-button-div">
           <button className="registration-button" type="submit">
             Prisijungti

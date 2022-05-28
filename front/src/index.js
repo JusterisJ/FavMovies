@@ -11,6 +11,8 @@ import Register from "./components/registerLogin/Register";
 import { UserProvider } from "./components/context/UserContext";
 import Login from "./components/registerLogin/Login";
 import FavMovies from "./components/favMovies/FavMovies";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import Admin from "./components/admin/Admin";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,12 +20,22 @@ root.render(
     <UserProvider>
       <BrowserRouter>
         <Routes>
+          {/* Private Routes */}
+          <Route element={<ProtectedRoutes />}>
+            <Route element={<App />}>
+              <Route element={<ProtectedRoutes roleRequired="admin" />}>
+                <Route path="/admin" element={<Admin />} />
+              </Route>
+              <Route path="/allMovies" element={<AllMovies />} />
+              <Route path="/favMovies" element={<FavMovies />} />
+            </Route>
+          </Route>
+
+          {/* Public Routes */}
           <Route path="/" element={<App />}>
-            <Route path={"/allMovies"} element={<AllMovies />} />
-            <Route path={"/register"} element={<Register />} />
-            <Route path={"/login"} element={<Login />} />
-            <Route path={"/favMovies"} element={<FavMovies />} />
-            {/* <Route path={"/"} element={<App />} /> */}
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Route>
         </Routes>
       </BrowserRouter>

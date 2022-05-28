@@ -22,7 +22,7 @@ export default function FavMovies({ id, updateUserData }) {
         <h2>Pridėti naują filmą</h2>
         <div className="addMovie-form">
           <input
-            className="addMovie-input"
+            className="addMovie-input form-control"
             type="text"
             placeholder="Pavadinimas"
             {...register("title", {
@@ -41,7 +41,7 @@ export default function FavMovies({ id, updateUserData }) {
             </span>
           </div>
           <div>
-            <button className="addMovie-button" type="submit">
+            <button className="addMovie-button btn btn-success" type="submit">
               Pridėti
             </button>
           </div>

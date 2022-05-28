@@ -10,8 +10,8 @@ export default function FavMovies() {
   useEffect(() => setUser(userData), [userData]);
   return (
     <div className="favMovies-container">
-      <h1>Mano mėgstamiausi filmai</h1>
       <AddNewMovie id={user._id} updateUserData={updateUserData} />
+      <h2>Mano mėgstamiausi filmai</h2>
       <FavMoviesList user={user} updateUserData={updateUserData} />
     </div>
   );

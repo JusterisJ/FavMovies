@@ -25,3 +25,7 @@ export async function deleteFavMovie(id, movieId) {
   const res = await axiosUser.patch(`movies/delete/${id}/${movieId}`);
   return res;
 }
+export async function updateFavMovie(id, movieId, movie) {
+  const res = await axiosUser.patch(`movies/update/${id}/${movieId}`, JSON.stringify(movie));
+  return res;
+}
