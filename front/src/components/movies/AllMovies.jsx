@@ -1,5 +1,10 @@
 import React from "react";
+import AllMoviesList from "./AllMoviesList";
 
 export default function AllMovies() {
-  return <div>AllMovies</div>;
+  return (
+    <div>
+      <AllMoviesList />
+    </div>
+  );
 }

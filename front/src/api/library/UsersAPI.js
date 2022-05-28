@@ -29,3 +29,8 @@ export async function updateFavMovie(id, movieId, movie) {
   const res = await axiosUser.patch(`movies/update/${id}/${movieId}`, JSON.stringify(movie));
   return res;
 }
+export async function likeMovie(id, movieId) {
+  console.log(id, movieId);
+  const res = axiosUser.get(`movies/like/${id}/${movieId}`);
+  return res;
+}

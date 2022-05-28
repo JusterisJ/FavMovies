@@ -1,8 +1,11 @@
 import React from "react";
 import { AiOutlineHeart } from "react-icons/ai";
+import { likeMovie } from "../../api/library/UsersAPI";
+import { useGlobalUserContext } from "../context/UserContext";
 
 export default function Movie({ movie }) {
-  console.log(movie.genre);
+  const { userData, updateUserData } = useGlobalUserContext();
+
   //TODO make better, .replace in cycle?
   function translateGenres(arr) {
     let translated = [];
@@ -19,7 +22,7 @@ export default function Movie({ movie }) {
         <div className="card-body">
           <h5 className="card-title">
             {movie.title}{" "}
-            <button className="button-favorite">
+            <button onClick={() => likeMovie(userData._id, movie._id)} className="button-favorite">
               <AiOutlineHeart />
             </button>
             <p>{translateGenres(movie.genre).join("/")}</p>

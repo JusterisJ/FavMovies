@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Movie from "./Movie";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { useGlobalMoviesContext } from "../context/MoviesContext";
+import Movie from "./Movie";
 
-export default function MoviesList() {
+export default function AllMoviesList() {
   const { movies } = useGlobalMoviesContext();
   const [genreFilter, setGenreFilter] = useState(false);
   const [titleFilter, setTitleFilter] = useState(false);

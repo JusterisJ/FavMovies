@@ -43,6 +43,8 @@ export default function FavMoviesList({ user, updateUserData }) {
                 <option value="action">Veiksmo</option>
                 <option value="comedy">Komedija</option>
                 <option value="horror">Siaubo</option>
+                <option value="drama">Drama</option>
+                <option value="thriller">Trileris</option>
               </select>
             </div>
             <div className="col-6 offset-3">

@@ -10,11 +10,21 @@ export default function FavMovies({ id, updateUserData }) {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   function onSubmit(data) {
     console.log(data);
-    addFavMovie(id, data).then(() => updateUserData(id));
+    addFavMovie(id, data).then(() => {
+      updateUserData(id);
+      swal({
+        text: "Filmas pridėtas",
+        icon: "success",
+        button: "Gerai",
+        timer: 2000,
+      });
+      reset();
+    });
   }
   return (
     <div className="newMovie-div">
@@ -28,16 +38,16 @@ export default function FavMovies({ id, updateUserData }) {
             {...register("title", {
               required: true,
               maxLength: 100,
-              minLength: 2,
+              minLength: 1,
               pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9]*$/i,
             })}
           />
           <div>
             <span>
-              {errors.name?.type === "maxLength" && "Ne daugiau kaip 100 simbolių"}
-              {errors.name?.type === "minLength" && "Bent 1 simbolis"}
-              {errors.name?.type === "required" && "Pavadinimas privalomas"}
-              {errors.name?.type === "pattern" && "Negali būti specialų simbolių"}
+              {errors.title?.type === "maxLength" && "Ne daugiau kaip 100 simbolių"}
+              {errors.title?.type === "minLength" && "Bent 1 simbolis"}
+              {errors.title?.type === "required" && "Pavadinimas privalomas"}
+              {errors.title?.type === "pattern" && "Negali būti specialų simbolių"}
             </span>
           </div>
           <div>

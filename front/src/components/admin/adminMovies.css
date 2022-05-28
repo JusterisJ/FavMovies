@@ -1,3 +1,7 @@
 .description {
   height: 10vh;
 }
+.button-favorite {
+  background-color: white;
+  border: none;
+}

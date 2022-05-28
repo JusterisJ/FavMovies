@@ -10,8 +10,8 @@ export default function Admin() {
       <div className="row text-center">
         {!showAddMovieForm && (
           <div className="col-6 offset-3">
-            <button onClick={() => setShowAddMovieForm(true)} className="btn btn-success">
-              + Pridėti nauą filmą
+            <button onClick={() => setShowAddMovieForm(true)} className="btn btn-success btn-lg">
+              + Pridėti naują filmą
             </button>
           </div>
         )}

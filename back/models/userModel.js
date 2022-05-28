@@ -3,21 +3,9 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const actorsSchema = mongoose.Schema({
-  name: { type: String },
-  surname: { type: String },
-  age: { type: Number },
-});
-
 const favMovies = mongoose.Schema({
-  title: { type: String, default: "Pildoma..." },
-  poster: { type: String },
-  length: { type: String },
-  genre: { type: Array },
-  releaseDate: { type: Date },
-  director: { type: String },
-  writers: { type: Array },
-  actors: [actorsSchema],
+  title: { type: String },
+  _id: { type: String },
 });
 
 const usersSchema = new mongoose.Schema({

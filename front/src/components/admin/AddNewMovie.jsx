@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { createMovie } from "../../api/library/MoviesAPI";
 import "./adminMovies.css";
+import { useGlobalMoviesContext } from "../context/MoviesContext";
 
 export default function AddNewMovie({ setShowAddMovieForm }) {
+  const { movies, getMovies } = useGlobalMoviesContext();
   const [genreArray, setGenreArray] = useState([]);
   const {
     register,
@@ -32,10 +34,10 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
     }
 
     data.genre = genreArray;
-    console.log(data.poster == "", data.poster);
+    console.log(data);
     createMovie(data)
       .then(() => {
-        setShowAddMovieForm(false);
+        getMovies();
         swal({
           text: "Filmas pridėtas",
           icon: "success",
@@ -56,15 +58,15 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
     <div className="row text-center">
       <form onSubmit={handleSubmit(addMovie)}>
         <div className="row">
-          <div className="col-8 text-start">
+          <div className="col-7 text-start">
             <h3>Naujo filmo pridėjimas</h3>
           </div>
-          <div className="col-2 text-end">
+          <div className="col-2  text-end">
             <button className="btn btn-success" type="submit">
               Pridėti
             </button>
           </div>
-          <div className="col-2 text-end">
+          <div className="col-3  text-end">
             <button
               onClick={() => {
                 reset();
@@ -88,7 +90,7 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
           </div>
         </div>
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Trukmė" />
+          <input className="form-control" type="number" placeholder="Trukmė (minutės)" {...register("length", {})} />
         </div>
 
         <div className="col-12 mt-3">
@@ -103,7 +105,7 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
         <div className="col-12 mt-3 text-start">
           <label>
             Išleidimo data <br />
-            <input className="form-control" type="date" {...register("releaseDate", {})} />
+            <input className="form-control" type="date" defaultValue={new Date().toISOString().substr(0, 10)} {...register("releaseDate", {})} />
           </label>
         </div>
         <div className="col-12 mt-3 text-start">

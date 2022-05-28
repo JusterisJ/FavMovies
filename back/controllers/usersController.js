@@ -182,3 +182,19 @@ exports.updateFavMovie = async (req, res) => {
     });
   }
 };
+exports.likeMovie = async (req, res) => {
+  console.log(req.params.id, req.params.movieId);
+
+  try {
+    const result = await Users.findOneAndUpdate({ _id: req.params.id }, { $push: { favMovies: { _id: req.params.movieId } } });
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
