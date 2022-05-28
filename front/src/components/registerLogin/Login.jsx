@@ -59,7 +59,9 @@ function Login() {
               },
             })}
           />
-          <span className="error text-danger fw-light">{errors.email?.message}</span>
+          <div>
+            <span className="error text-danger fw-light">{errors.email?.message}</span>
+          </div>
         </div>
         <div className="form-input">
           <input
@@ -79,7 +81,9 @@ function Login() {
               },
             })}
           />
-          <span className="error text-danger fw-light">{errors.password?.message}</span>
+          <div>
+            <span className="error text-danger fw-light">{errors.password?.message}</span>
+          </div>
         </div>
         Neturite paskyros? <Link to="/register">Registruotis</Link>
         <div className="registration-button-div">

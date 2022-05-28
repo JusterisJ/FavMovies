@@ -14,7 +14,7 @@ exports.getAllMovies = async (req, res) => {
     });
   }
 };
-exports.createNewMovie = async (req, res) => {
+exports.createMovie = async (req, res) => {
   try {
     const result = await Movies.create(req.body);
     res.status(200).json({
