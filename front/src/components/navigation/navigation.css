@@ -5,6 +5,7 @@
   padding-top: 2vh;
   border-bottom: 2px solid rgb(87, 55, 55);
   background-color: white;
+  z-index: 10;
 }
 
 .navigation ul li {

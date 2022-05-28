@@ -15,6 +15,11 @@ exports.getAllMovies = async (req, res) => {
   }
 };
 exports.createMovie = async (req, res) => {
+  // movieModel only applies default value if it is undefined
+  // getting empty string from form so making it undefined
+  if (req.body.poster.length == 0) {
+    req.body.poster = undefined;
+  }
   try {
     const result = await Movies.create(req.body);
     res.status(200).json({

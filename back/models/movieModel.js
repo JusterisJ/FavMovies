@@ -8,7 +8,8 @@ const actorsSchema = mongoose.Schema({
 
 const moviesSchema = new mongoose.Schema({
   title: { type: String, default: "Pildoma..." },
-  poster: { type: String },
+  description: { type: String, default: "Pildoma..." },
+  poster: { type: String, default: "https://cdn.posteritati.com/posters/000/000/008/704/the-last-unicorn-md-web.jpg" },
   length: { type: String },
   genre: { type: Array },
   releaseDate: { type: Date },

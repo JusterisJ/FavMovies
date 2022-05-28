@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddNewMovie from "./AddNewMovie";
+import MoviesList from "./MoviesList";
 
 export default function Admin() {
   const [showAddMovieForm, setShowAddMovieForm] = useState(false);
+  useEffect(() => {}, [showAddMovieForm]);
   return (
     <div className="container ">
       <div className="row text-center">
@@ -19,6 +21,7 @@ export default function Admin() {
           </div>
         )}
       </div>
+      <MoviesList />
     </div>
   );
 }

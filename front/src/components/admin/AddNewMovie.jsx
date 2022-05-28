@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { createMovie } from "../../api/library/MoviesAPI";
+import "./adminMovies.css";
 
 export default function AddNewMovie({ setShowAddMovieForm }) {
   const [genreArray, setGenreArray] = useState([]);
@@ -31,16 +32,17 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
     }
 
     data.genre = genreArray;
-    console.log(data, genreArray);
+    console.log(data.poster == "", data.poster);
     createMovie(data)
-      .then(() =>
+      .then(() => {
+        setShowAddMovieForm(false);
         swal({
           text: "Filmas pridėtas",
           icon: "success",
           button: "Gerai",
           timer: 2000,
-        })
-      )
+        });
+      })
       .catch(() => {
         swal({
           text: "Nepavyko pridėti, bandykite dar kartą",
@@ -75,7 +77,7 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
           </div>
         </div>
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Pavadinimas" {...register("title", { required: true, minLength: 2, maxLength: 100, pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9]*$/i })} />
+          <input className="form-control" type="text" placeholder="Pavadinimas" {...register("title", { required: true, minLength: 1, maxLength: 100, pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9]*$/i })} />
           <div>
             <span className="text-danger fw-light">
               {errors.title?.type === "pattern" && "Negali būti specialų simbolių"}
@@ -94,6 +96,9 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
         </div>
         <div className="col-12 mt-3">
           <input className="form-control" type="text" placeholder="Filmo paveikslėlis (nuoroda)" {...register("poster", {})} />
+        </div>
+        <div className="col-12 mt-3">
+          <textarea className="form-control description" type="text" placeholder="Trumpas aprašymas" {...register("description")} />
         </div>
         <div className="col-12 mt-3 text-start">
           <label>
