@@ -41,7 +41,7 @@ export default function FavMovies({ id, updateUserData }) {
               showTooltip(false);
               setTimeout(() => showTooltip(true), 50);
             }}
-            data-tip="Filmus taip pat galite pridėti iš 'Visi filmai' skilties. Įtraukite filmius tuo būdu, paspaudus ant filmo saraše iš karto matysite visą filmo informaciją."
+            data-tip="Filmus taip pat galite pridėti iš 'Visi filmai' skilties. Įtrauke filmus tuo būdu, paspaudus ant filmo saraše iš karto matysite visą filmo informaciją."
           />
         </h2>
 

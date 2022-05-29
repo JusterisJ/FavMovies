@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BsTrash, BsPencil } from "react-icons/bs";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { ImArrowLeft2 } from "react-icons/im";
-import { deleteFavMovie } from "../../api/library/UsersAPI";
+import { deleteFavMovie, unlikeMovie } from "../../api/library/UsersAPI";
 import swal from "sweetalert";
 import EditForm from "./EditForm";
 import MovieInfo from "./MovieInfo";
@@ -18,16 +18,30 @@ export default function Movie({ movie, userId, updateUserData }) {
       buttons: ["Atšaukti", "Gerai"],
     }).then((isConfirm) => {
       if (isConfirm) {
-        deleteFavMovie(userId, movie._id).then(() => {
-          console.log(movie);
-          updateUserData(userId);
-          swal({
-            text: "Ištrinta",
-            icon: "success",
-            button: "Gerai",
-            timer: 2000,
-          });
-        });
+        movie.poster
+          ? unlikeMovie(userId, movie._id).then(() => {
+              console.log(movie);
+              updateUserData(userId);
+              swal({
+                text: "Ištrinta",
+                icon: "success",
+                button: "Gerai",
+                timer: 2000,
+              });
+            })
+          : deleteFavMovie(userId, movie._id).then(() => {
+              console.log(movie);
+              updateUserData(userId);
+              swal({
+                text: "Ištrinta",
+                icon: "success",
+                button: "Gerai",
+                timer: 2000,
+              });
+            });
+        // setTimeout(() => {
+        //   updateUserData(userId);
+        // }, 100);
       }
     });
   }
@@ -42,9 +56,9 @@ export default function Movie({ movie, userId, updateUserData }) {
             </button>
           </div>
           <div className="col-3 text-end">
-            <button className="movie-button" onClick={() => setEditForm(!editForm)}>
+            {/* <button className="movie-button" onClick={() => setEditForm(!editForm)}>
               <BsPencil color="#3a3845" fontSize="1.5em" />
-            </button>
+            </button> */}
             <button
               className="movie-button"
               onClick={() => {
@@ -54,14 +68,9 @@ export default function Movie({ movie, userId, updateUserData }) {
               <BsTrash color="#bc6e7f" fontSize="1.5em" />
             </button>
           </div>
-          {showMovieInfo && <MovieInfo movie={movie} />}
+          {showMovieInfo && <MovieInfo movie={movie} userId={userId} updateUserData={updateUserData} />}
         </div>
       </div>
-      {editForm && (
-        <div className="col-12">
-          <EditForm movie={movie} userId={userId} updateUserData={updateUserData} setEditForm={setEditForm} />
-        </div>
-      )}
     </div>
   );
 }

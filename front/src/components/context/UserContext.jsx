@@ -14,13 +14,11 @@ const UserProvider = ({ children }) => {
 
   function updateUserData(id) {
     getUserById(id).then((res) => {
-      console.log(res);
       setUserData(res.data.data);
       localStorage.setItem("user", JSON.stringify(res.data.data));
     });
   }
   async function doLogin(data) {
-    console.log(data);
     let result = await loginUser(data).then((res) => {
       setUserData(res.data.user);
       localStorage.setItem("user", JSON.stringify(res.data.user));

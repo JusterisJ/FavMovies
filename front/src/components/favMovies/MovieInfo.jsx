@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsTrash, BsPencil } from "react-icons/bs";
+import EditForm from "./EditForm";
 
-export default function MovieInfo({ movie }) {
-  console.log(movie);
+export default function MovieInfo({ movie, userId, updateUserData }) {
+  const [editForm, setEditForm] = useState(false);
+
   function translateGenres(arr) {
     let translated = [];
     for (var i = 0; i < arr.length; i++) {
@@ -38,12 +40,13 @@ export default function MovieInfo({ movie }) {
             <h4>Pavadinimas: {movie.title} </h4>
           </div>
           <div className="col-1 text-start">
-            <button className="movie-button">
+            <button onClick={() => setEditForm(!editForm)} className="movie-button">
               <BsPencil color="#3a3845" fontSize="1.5em" />
             </button>
           </div>
 
           <div className="col-12">Pridėjus filmą iš "Visi filmai", čia matytumete visą filmo informaciją.</div>
+          {editForm && <EditForm movie={movie} userId={userId} updateUserData={updateUserData} />}
         </div>
       )}
     </div>

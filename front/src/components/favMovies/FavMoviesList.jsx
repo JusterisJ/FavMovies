@@ -31,9 +31,6 @@ export default function FavMoviesList({ user, updateUserData }) {
     var favLikedMovies = favMovies.concat(likedMovies);
   }
 
-  console.log(favLikedMovies);
-  console.log(likedMovies);
-
   let displayMovies;
 
   if (favMovies !== undefined) {

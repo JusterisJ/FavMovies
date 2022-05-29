@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./navigation.css";
 import { useGlobalUserContext } from "../context/UserContext";
+import swal from "sweetalert";
 
 export default function Navigation() {
   const { userData, signOut } = useGlobalUserContext();
@@ -56,7 +57,20 @@ export default function Navigation() {
         </li>
         <li className={`${hideButton()} `}>
           <Link to="/favMovies">
-            <button className={`navigation-button `} onClick={() => signOut()}>
+            <button
+              className={`navigation-button `}
+              onClick={() => {
+                swal({
+                  title: "Ar tikrai atsijungti?",
+                  icon: "warning",
+                  buttons: ["Atšaukti", "Gerai"],
+                }).then((isConfirm) => {
+                  if (isConfirm) {
+                    signOut();
+                  }
+                });
+              }}
+            >
               <p>Atsijungti</p>
             </button>
           </Link>

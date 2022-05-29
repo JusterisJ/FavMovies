@@ -24,6 +24,7 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
     }
   }
   function addMovie(data) {
+    console.log(data.releaseDate);
     if (genreArray.length == 0) {
       swal({
         text: "Pasirinkite bent 1 žanrą",
@@ -79,33 +80,36 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
           </div>
         </div>
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Pavadinimas" {...register("title", { required: true, minLength: 1, maxLength: 100, pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9 ]*$/i })} />
+          <input className="form-control" type="text" placeholder="Pavadinimas" {...register("title", { required: true, minLength: 1, maxLength: 100, pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9 :]*$/i })} />
           <div>
             <span className="text-danger fw-light">
               {errors.title?.type === "pattern" && "Negali būti specialų simbolių"}
-              {errors.title?.type === "required" && "Pavadinimas būtinas"}
+              {errors.title?.type === "required" && "Būtinas laukelis "}
               {errors.title?.type === "minLength" && "Turi būti bent 1 simbolis"}
               {errors.title?.type === "maxLength" && "Ne daugiau kaip 100 simbolių"}
             </span>
           </div>
         </div>
         <div className="col-12 mt-3">
-          <input className="form-control" type="number" placeholder="Trukmė (minutės)" {...register("length", {})} />
+          <input className="form-control" type="number" placeholder="Trukmė (minutės)" {...register("length", { required: true })} />
+          <span className="text-danger fw-light">{errors.length?.type === "required" && "Būtinas laukelis"}</span>
         </div>
 
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Režisierius" {...register("director")} />
+          <input className="form-control" type="text" placeholder="Režisierius" {...register("director", { required: true })} />
+          <span className="text-danger fw-light">{errors.length?.type === "required" && "Būtinas laukelis"}</span>
         </div>
         <div className="col-12 mt-3">
           <input className="form-control" type="text" placeholder="Filmo paveikslėlis (nuoroda)" {...register("poster", {})} />
         </div>
         <div className="col-12 mt-3">
-          <textarea className="form-control description" type="text" placeholder="Trumpas aprašymas" {...register("description")} />
+          <textarea className="form-control description" type="text" placeholder="Trumpas aprašymas" {...register("description", { required: true })} />
+          <span className="text-danger fw-light">{errors.length?.type === "required" && "Būtinas laukelis"}</span>
         </div>
         <div className="col-12 mt-3 text-start">
           <label>
             Išleidimo data <br />
-            <input className="form-control" type="date" defaultValue={new Date().toISOString().substr(0, 10)} {...register("releaseDate", {})} />
+            <input className="form-control" type="date" defaultValue={new Date().toISOString().slice(0, 10)} {...register("releaseDate", { required: true })} />
           </label>
         </div>
         <div className="col-12 mt-3 text-start">

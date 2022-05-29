@@ -208,7 +208,7 @@ exports.updateFavMovie = async (req, res) => {
       data: result,
     });
   } catch (err) {
-    res.stauts(400).json({
+    res.status(400).json({
       status: "fail",
       message: err,
     });

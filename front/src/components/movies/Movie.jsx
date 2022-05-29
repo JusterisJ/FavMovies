@@ -17,14 +17,15 @@ export default function Movie({ movie }) {
     return translated;
   }
   function likeOrUnlikeMovie() {
-    userData.likedMovies.filter((object) => object.id == movie._id)
-      ? unlikeMovie(userData._id, movie._id)
-      : likeMovie(userData._id, movie._id).then((res) => {
-          updateUserData(userData._id);
-        });
+    userData.likedMovies.filter((object) => object.id == movie._id).length == 0 ? likeMovie(userData._id, movie._id) : unlikeMovie(userData._id, movie._id);
+    setTimeout(() => {
+      updateUserData(userData._id);
+    }, 100);
   }
-
+  console.log(userData);
+  console.log(userData.likedMovies);
   console.log(userData.likedMovies.filter((object) => object.id == movie._id));
+  console.log(userData.likedMovies.filter((object) => object.id == movie._id).length == 0);
 
   return (
     <div className="col-4">
@@ -34,14 +35,14 @@ export default function Movie({ movie }) {
           <h5 className="card-title">
             {movie.title}{" "}
             <button onClick={() => likeOrUnlikeMovie()} className="button-favorite">
-              {userData.likedMovies.filter((object) => object.id == movie._id) ? <AiFillHeart /> : <AiOutlineHeart />}
+              {userData.likedMovies.filter((object) => object.id == movie._id).length == 0 ? <AiOutlineHeart /> : <AiFillHeart />}
             </button>
             <p>{translateGenres(movie.genre).join("/")}</p>
           </h5>
           <p className="card-text">{movie.description}</p>
           <p className="card-text">Trukmė: {movie.length} min.</p>
           <p className="card-text">Režisierius: {movie.director}</p>
-          <p className="card-text">Išleista: {movie.releaseDate} </p>
+          <p className="card-text">Išleista: {movie.releaseDate.slice(0, 10)} </p>
         </div>
       </div>
     </div>

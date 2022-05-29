@@ -13,7 +13,7 @@ export default function EditForm({ movie, userId, updateUserData, setEditForm })
     formState: { errors },
   } = useForm();
   function editFavMovie(data) {
-    console.log(data);
+    console.log(movie._id);
     updateFavMovie(userId, movie._id, data).then((res) => {
       console.log(res);
       swal({
