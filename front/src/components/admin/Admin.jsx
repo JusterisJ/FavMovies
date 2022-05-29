@@ -9,8 +9,8 @@ export default function Admin() {
     <div className="container ">
       <div className="row text-center">
         {!showAddMovieForm && (
-          <div className="col-6 offset-3">
-            <button onClick={() => setShowAddMovieForm(true)} className="btn btn-success btn-lg">
+          <div className="col-12  text-start">
+            <button onClick={() => setShowAddMovieForm(true)} className="btn btn-success btn-lg ">
               + Pridėti naują filmą
             </button>
           </div>
