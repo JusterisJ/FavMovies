@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { addFavMovie } from "../../api/library/UsersAPI";
-
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import "./favMovies.css";
+import ReactTooltip from "react-tooltip";
 
 export default function FavMovies({ id, updateUserData }) {
   const {
@@ -13,6 +14,7 @@ export default function FavMovies({ id, updateUserData }) {
     reset,
     formState: { errors },
   } = useForm();
+  const [tooltip, showTooltip] = useState(true);
   function onSubmit(data) {
     console.log(data);
     addFavMovie(id, data).then(() => {
@@ -29,7 +31,20 @@ export default function FavMovies({ id, updateUserData }) {
   return (
     <div className="newMovie-div">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>Pridėti naują filmą</h2>
+        {tooltip && <ReactTooltip type={"info"} />}
+        <h2>
+          Pridėti naują filmą
+          {/* tooltip doesnt autohide in react18 production mode, this a workaround */}
+          <AiOutlineQuestionCircle
+            onMouseEnter={() => showTooltip(true)}
+            onMouseLeave={() => {
+              showTooltip(false);
+              setTimeout(() => showTooltip(true), 50);
+            }}
+            data-tip="Filmus taip pat galite pridėti iš 'Visi filmai' skilties. Įtraukite filmius tuo būdu, paspaudus ant filmo saraše iš karto matysite visą filmo informaciją."
+          />
+        </h2>
+
         <div className="addMovie-form">
           <input
             className="addMovie-input form-control"

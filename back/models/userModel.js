@@ -5,7 +5,10 @@ const bcrypt = require("bcryptjs");
 
 const favMovies = mongoose.Schema({
   title: { type: String },
-  _id: { type: String },
+});
+
+const likedMovies = mongoose.Schema({
+  id: { type: String },
 });
 
 const usersSchema = new mongoose.Schema({
@@ -26,8 +29,10 @@ const usersSchema = new mongoose.Schema({
     minLength: 8,
     maxLength: 100,
   },
+  token: { type: String, default: null },
   role: { type: String, default: "user" },
   favMovies: [favMovies],
+  likedMovies: [likedMovies],
 });
 
 usersSchema.pre("save", async function (next) {

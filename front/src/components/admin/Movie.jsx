@@ -1,8 +1,14 @@
-import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
+import React, { useState } from "react";
+import { BsTrash, BsPencil } from "react-icons/bs";
+import swal from "sweetalert";
+import { deleteMovie } from "../../api/library/MoviesAPI";
+import { useGlobalMoviesContext } from "../context/MoviesContext";
+import EditForm from "./EditForm";
 
 export default function Movie({ movie }) {
-  console.log(movie.genre);
+  const [editForm, setEditForm] = useState(false);
+  const { getMovies } = useGlobalMoviesContext();
+
   //TODO make better, .replace in cycle?
   function translateGenres(arr) {
     let translated = [];
@@ -13,23 +19,41 @@ export default function Movie({ movie }) {
   }
 
   return (
-    <div className="col-4">
-      <div className="card">
-        <img src={movie.poster} className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">
-            {movie.title}{" "}
-            <button className="button-favorite">
-              <AiOutlineHeart />
-            </button>
-            <p>{translateGenres(movie.genre).join("/")}</p>
-          </h5>
-          <p className="card-text">{movie.description}</p>
-          <p className="card-text">Trukmė: {movie.length} min.</p>
-          <p className="card-text">Režisierius: {movie.director}</p>
-          <p className="card-text">Išleista: {movie.releaseDate} </p>
+    <div className="col-12">
+      <div className="row">
+        <div className="col-7"> {movie.title}</div>
+        <div className="col-3">
+          {" "}
+          <button className="movie-button" onClick={() => setEditForm(!editForm)}>
+            <BsPencil color="#3a3845" fontSize="1.5em" />
+          </button>
+          <button
+            className="movie-button"
+            onClick={() => {
+              swal({
+                title: "Ar tikrai norite ištrinti?",
+                icon: "warning",
+                buttons: ["Atšaukti", "Gerai"],
+              }).then((isConfirm) => {
+                if (isConfirm) {
+                  deleteMovie(movie._id).then(() => {
+                    getMovies();
+                    swal({
+                      text: "Ištrinta",
+                      icon: "success",
+                      button: "Gerai",
+                      timer: 2000,
+                    });
+                  });
+                }
+              });
+            }}
+          >
+            <BsTrash color="#bc6e7f" fontSize="1.5em" />
+          </button>
         </div>
       </div>
+      {editForm && <EditForm movie={movie} />}
     </div>
   );
 }

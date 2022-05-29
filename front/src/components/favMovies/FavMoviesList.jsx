@@ -2,17 +2,42 @@ import React, { useState, useEffect } from "react";
 import Movie from "./Movie";
 import "./favMovies.css";
 import { v4 as uuidv4 } from "uuid";
+import { getLikedMovies } from "../../api/library/UsersAPI";
 
 export default function FavMoviesList({ user, updateUserData }) {
+  let [likedMovies, setLikedMovies] = useState([]);
   const [favMovies, setFavMovies] = useState([]);
   const [genreFilter, setGenreFilter] = useState(false);
   const [titleFilter, setTitleFilter] = useState(false);
   const [searchOptions, setSearchOptions] = useState(false);
-  useEffect(() => setFavMovies(user.favMovies), [user]);
+
+  useEffect(() => {
+    if (user.hasOwnProperty("email")) {
+      setFavMovies(user.favMovies);
+      let moviesToGet = [];
+
+      user.likedMovies.forEach((movie) => {
+        moviesToGet.push(movie.id);
+      });
+      getLikedMovies(moviesToGet).then((res) => {
+        // while using setLikedMovies was getting infinte loop
+        setLikedMovies(res.data.data);
+        console.log(res.data.data);
+      });
+      //favLikedMovies = [...favMovies, ...likedMovies];
+    }
+  }, [user]);
+  if (likedMovies != undefined) {
+    var favLikedMovies = favMovies.concat(likedMovies);
+  }
+
+  console.log(favLikedMovies);
+  console.log(likedMovies);
 
   let displayMovies;
+
   if (favMovies !== undefined) {
-    displayMovies = favMovies
+    displayMovies = favLikedMovies
       .filter((movie) => {
         if (genreFilter != false && titleFilter != false) {
           return movie.genre.includes(genreFilter) && movie.title.includes(titleFilter);

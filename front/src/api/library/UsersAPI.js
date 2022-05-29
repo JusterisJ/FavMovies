@@ -9,6 +9,7 @@ export async function getEmail(email) {
   return res.data.data;
 }
 export async function getUserById(id) {
+  console.log(`here api`, id);
   const res = await axiosUser.get(`/${id}`);
   return res;
 }
@@ -30,7 +31,14 @@ export async function updateFavMovie(id, movieId, movie) {
   return res;
 }
 export async function likeMovie(id, movieId) {
-  console.log(id, movieId);
   const res = axiosUser.get(`movies/like/${id}/${movieId}`);
+  return res;
+}
+export async function unlikeMovie(id, movieId) {
+  const res = axiosUser.get(`movies/unlike/${id}/${movieId}`);
+  return res;
+}
+export async function getLikedMovies(ids) {
+  const res = axiosUser.post("movies/getLiked", JSON.stringify(ids));
   return res;
 }

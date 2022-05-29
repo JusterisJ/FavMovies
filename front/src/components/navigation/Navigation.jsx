@@ -4,7 +4,7 @@ import "./navigation.css";
 import { useGlobalUserContext } from "../context/UserContext";
 
 export default function Navigation() {
-  const { userData, updateUserData } = useGlobalUserContext();
+  const { userData, signOut } = useGlobalUserContext();
   function hideButton() {
     if (Object.keys(userData).length == 0) {
       return "d-none";
@@ -47,10 +47,17 @@ export default function Navigation() {
             </button>
           </Link>
         </li>
-        <li className={`${userData.role == "admin" ? true : "d-none"} `}>
+        <li className={`${userData.role == "159753" ? true : "d-none"} `}>
           <Link to="/admin">
             <button className={`navigation-button `}>
               <p>Admin</p>
+            </button>
+          </Link>
+        </li>
+        <li className={`${hideButton()} `}>
+          <Link to="/favMovies">
+            <button className={`navigation-button `} onClick={() => signOut()}>
+              <p>Atsijungti</p>
             </button>
           </Link>
         </li>

@@ -5,9 +5,12 @@ import { ImArrowLeft2 } from "react-icons/im";
 import { deleteFavMovie } from "../../api/library/UsersAPI";
 import swal from "sweetalert";
 import EditForm from "./EditForm";
+import MovieInfo from "./MovieInfo";
 
 export default function Movie({ movie, userId, updateUserData }) {
+  const [showMovieInfo, setShowMovieInfo] = useState(false);
   const [editForm, setEditForm] = useState(false);
+
   function deleteMovie() {
     swal({
       title: "Ar tikrai norite ištrinti?",
@@ -16,6 +19,7 @@ export default function Movie({ movie, userId, updateUserData }) {
     }).then((isConfirm) => {
       if (isConfirm) {
         deleteFavMovie(userId, movie._id).then(() => {
+          console.log(movie);
           updateUserData(userId);
           swal({
             text: "Ištrinta",
@@ -31,7 +35,12 @@ export default function Movie({ movie, userId, updateUserData }) {
     <div className="row text-center mt-3 ">
       <div className="movie col-12  ">
         <div className="row">
-          <div className="col-5 text-start offset-2"> {movie.title}</div>
+          <div className="col-5 text-start offset-2">
+            {" "}
+            <button onClick={() => setShowMovieInfo(!showMovieInfo)} className="btn">
+              {movie.title}
+            </button>
+          </div>
           <div className="col-3 text-end">
             <button className="movie-button" onClick={() => setEditForm(!editForm)}>
               <BsPencil color="#3a3845" fontSize="1.5em" />
@@ -45,6 +54,7 @@ export default function Movie({ movie, userId, updateUserData }) {
               <BsTrash color="#bc6e7f" fontSize="1.5em" />
             </button>
           </div>
+          {showMovieInfo && <MovieInfo movie={movie} />}
         </div>
       </div>
       {editForm && (

@@ -1,6 +1,8 @@
+const { json } = require("express");
 const Movies = require("../models/movieModel");
 
 exports.getAllMovies = async (req, res) => {
+  console.log(`movies`);
   try {
     const movies = await Movies.find();
     res.status(200).json({
@@ -22,6 +24,37 @@ exports.createMovie = async (req, res) => {
   }
   try {
     const result = await Movies.create(req.body);
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+exports.deleteMovie = async (req, res) => {
+  try {
+    const result = await Movies.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.editMovie = async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  try {
+    const result = await Movies.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({
       status: "success",
       data: result,

@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import swal from "sweetalert";
-import { createMovie } from "../../api/library/MoviesAPI";
-import "./adminMovies.css";
+import { editMovie } from "../../api/library/MoviesAPI";
 import { useGlobalMoviesContext } from "../context/MoviesContext";
+import swal from "sweetalert";
 
-export default function AddNewMovie({ setShowAddMovieForm }) {
-  const { movies, getMovies } = useGlobalMoviesContext();
+export default function EditForm({ movie }) {
   const [genreArray, setGenreArray] = useState([]);
+  const { getMovies } = useGlobalMoviesContext();
   const {
     register,
-    reset,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   function addRemoveGenres(e) {
@@ -23,63 +20,22 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
       genreArray.indexOf(e.target.value);
     }
   }
-  function addMovie(data) {
-    if (genreArray.length == 0) {
+  function onSubmit(data) {
+    editMovie(movie._id, data).then((res) => {
+      getMovies();
       swal({
-        text: "Pasirinkite bent 1 žanrą",
-        icon: "error",
+        text: "Filmas redaguotas",
+        icon: "success",
         button: "Gerai",
+        timer: 2000,
       });
-      return;
-    }
-
-    data.genre = genreArray;
-    console.log(data);
-    createMovie(data)
-      .then(() => {
-        getMovies();
-        swal({
-          text: "Filmas pridėtas",
-          icon: "success",
-          button: "Gerai",
-          timer: 2000,
-        });
-      })
-      .catch(() => {
-        swal({
-          text: "Nepavyko pridėti, bandykite dar kartą",
-          icon: "error",
-          button: "Gerai",
-          timer: 2000,
-        });
-      });
+    });
   }
   return (
-    <div className="row text-center">
-      <form onSubmit={handleSubmit(addMovie)}>
-        <div className="row">
-          <div className="col-7 text-start">
-            <h3>Naujo filmo pridėjimas</h3>
-          </div>
-          <div className="col-2  text-end">
-            <button className="btn btn-success" type="submit">
-              Pridėti
-            </button>
-          </div>
-          <div className="col-3  text-end">
-            <button
-              onClick={() => {
-                reset();
-                setShowAddMovieForm(false);
-              }}
-              className="btn btn-danger"
-            >
-              Atšaukti
-            </button>
-          </div>
-        </div>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Pavadinimas" {...register("title", { required: true, minLength: 1, maxLength: 100, pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9 ]*$/i })} />
+          <input className="form-control" type="text" defaultValue={movie.title} {...register("title", { required: true, minLength: 1, maxLength: 100, pattern: /^[[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ0-9 ]*$/i })} />
           <div>
             <span className="text-danger fw-light">
               {errors.title?.type === "pattern" && "Negali būti specialų simbolių"}
@@ -90,17 +46,17 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
           </div>
         </div>
         <div className="col-12 mt-3">
-          <input className="form-control" type="number" placeholder="Trukmė (minutės)" {...register("length", {})} />
+          <input className="form-control" type="number" defaultValue={movie.length} {...register("length", {})} />
         </div>
 
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Režisierius" {...register("director")} />
+          <input className="form-control" type="text" defaultValue={movie.director} {...register("director")} />
         </div>
         <div className="col-12 mt-3">
-          <input className="form-control" type="text" placeholder="Filmo paveikslėlis (nuoroda)" {...register("poster", {})} />
+          <input className="form-control" type="text" defaultValue={movie.poster} {...register("poster", {})} />
         </div>
         <div className="col-12 mt-3">
-          <textarea className="form-control description" type="text" placeholder="Trumpas aprašymas" {...register("description")} />
+          <textarea className="form-control description" type="text" defaultValue={movie.description} {...register("description")} />
         </div>
         <div className="col-12 mt-3 text-start">
           <label>
@@ -166,6 +122,9 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
             Drama
           </label>
         </div>
+        <button type="submit" className="btn btn-success">
+          Redaguoti
+        </button>
       </form>
     </div>
   );

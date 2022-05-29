@@ -8,3 +8,13 @@ export async function getAllMovies() {
   const res = await axiosUser.get("/");
   return res;
 }
+
+export async function deleteMovie(id) {
+  const res = await axiosUser.get(`/delete/${id}`);
+  return res;
+}
+
+export async function editMovie(id, data) {
+  const res = await axiosUser.patch(`/edit/${id}`, JSON.stringify(data));
+  return res;
+}

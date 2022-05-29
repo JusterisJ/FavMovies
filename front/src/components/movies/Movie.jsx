@@ -1,10 +1,12 @@
-import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
-import { likeMovie } from "../../api/library/UsersAPI";
+import React, { useEffect } from "react";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { likeMovie, unlikeMovie } from "../../api/library/UsersAPI";
 import { useGlobalUserContext } from "../context/UserContext";
 
 export default function Movie({ movie }) {
   const { userData, updateUserData } = useGlobalUserContext();
+
+  useEffect(() => {}, [userData]);
 
   //TODO make better, .replace in cycle?
   function translateGenres(arr) {
@@ -14,6 +16,15 @@ export default function Movie({ movie }) {
     }
     return translated;
   }
+  function likeOrUnlikeMovie() {
+    userData.likedMovies.filter((object) => object.id == movie._id)
+      ? unlikeMovie(userData._id, movie._id)
+      : likeMovie(userData._id, movie._id).then((res) => {
+          updateUserData(userData._id);
+        });
+  }
+
+  console.log(userData.likedMovies.filter((object) => object.id == movie._id));
 
   return (
     <div className="col-4">
@@ -22,8 +33,8 @@ export default function Movie({ movie }) {
         <div className="card-body">
           <h5 className="card-title">
             {movie.title}{" "}
-            <button onClick={() => likeMovie(userData._id, movie._id)} className="button-favorite">
-              <AiOutlineHeart />
+            <button onClick={() => likeOrUnlikeMovie()} className="button-favorite">
+              {userData.likedMovies.filter((object) => object.id == movie._id) ? <AiFillHeart /> : <AiOutlineHeart />}
             </button>
             <p>{translateGenres(movie.genre).join("/")}</p>
           </h5>
