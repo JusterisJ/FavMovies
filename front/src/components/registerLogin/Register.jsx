@@ -17,7 +17,6 @@ export default function Register() {
   let navigate = useNavigate();
 
   function registerUser(data) {
-    console.log(data);
     createUser(data)
       .then(() => {
         swal({
@@ -78,7 +77,6 @@ export default function Register() {
               validate: {
                 checkEmail: async (value) => {
                   let pass = await getEmail({ email: value });
-                  console.log(!pass);
 
                   return !pass;
                 },

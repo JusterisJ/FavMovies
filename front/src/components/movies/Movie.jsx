@@ -22,10 +22,6 @@ export default function Movie({ movie }) {
       updateUserData(userData._id);
     }, 100);
   }
-  console.log(userData);
-  console.log(userData.likedMovies);
-  console.log(userData.likedMovies.filter((object) => object.id == movie._id));
-  console.log(userData.likedMovies.filter((object) => object.id == movie._id).length == 0);
 
   return (
     <div className="col-4">

@@ -48,7 +48,7 @@ export default function Navigation() {
             </button>
           </Link>
         </li>
-        <li className={`${userData.role == "159753" ? true : "d-none"} `}>
+        <li className={`${userData.role == "admin" ? true : "d-none"} `}>
           <Link to="/admin">
             <button className={`navigation-button `}>
               <p>Admin</p>

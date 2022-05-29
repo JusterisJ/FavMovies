@@ -16,7 +16,6 @@ function Login() {
 
   let navigate = useNavigate();
   function onSubmit(data) {
-    console.log(data);
     doLogin(data)
       .then((res) => {
         swal({
@@ -27,7 +26,7 @@ function Login() {
         });
         if (res.status == 200) {
           setTimeout(() => {
-            navigate("/favMovies");
+            navigate("/allMovies");
           }, 1000);
         }
       })

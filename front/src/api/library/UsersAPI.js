@@ -9,7 +9,6 @@ export async function getEmail(email) {
   return res.data.data;
 }
 export async function getUserById(id) {
-  console.log(`here api`, id);
   const res = await axiosUser.get(`/${id}`);
   return res;
 }
@@ -22,7 +21,6 @@ export async function addFavMovie(id, movie) {
   return res;
 }
 export async function deleteFavMovie(id, movieId) {
-  console.log(id, movieId);
   const res = await axiosUser.patch(`movies/delete/${id}/${movieId}`);
   return res;
 }

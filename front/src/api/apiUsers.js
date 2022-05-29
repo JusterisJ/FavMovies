@@ -1,13 +1,17 @@
 import axios from "axios";
-console.log(localStorage.token != undefined);
-if (localStorage.token != undefined) {
-  var token = JSON.parse(localStorage.token);
-}
+
+// var token;
+// let timer = setInterval(() => {
+//   if (JSON.parse(localStorage.token) != undefined) {
+//     token = JSON.parse(localStorage.token);
+//     clearInterval(timer);
+//   }
+// }, 1000);
 
 const axiosUser = axios.create({
   baseURL: `http://127.0.0.1:3005/api/v1/users`,
   headers: {
-    Authorization: `Bearer ${token}`,
+    // Authorization: `Bearer ${token}`,
     Accept: "application/json",
     "Content-Type": "application/json",
   },

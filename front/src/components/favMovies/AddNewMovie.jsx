@@ -16,7 +16,6 @@ export default function FavMovies({ id, updateUserData }) {
   } = useForm();
   const [tooltip, showTooltip] = useState(true);
   function onSubmit(data) {
-    console.log(data);
     addFavMovie(id, data).then(() => {
       updateUserData(id);
       swal({

@@ -20,11 +20,8 @@ export default function FavMoviesList({ user, updateUserData }) {
         moviesToGet.push(movie.id);
       });
       getLikedMovies(moviesToGet).then((res) => {
-        // while using setLikedMovies was getting infinte loop
         setLikedMovies(res.data.data);
-        console.log(res.data.data);
       });
-      //favLikedMovies = [...favMovies, ...likedMovies];
     }
   }, [user]);
   if (likedMovies != undefined) {
@@ -32,14 +29,17 @@ export default function FavMoviesList({ user, updateUserData }) {
   }
 
   let displayMovies;
-
   if (favMovies !== undefined) {
     displayMovies = favLikedMovies
       .filter((movie) => {
         if (genreFilter != false && titleFilter != false) {
-          return movie.genre.includes(genreFilter) && movie.title.includes(titleFilter);
+          if (movie.poster) {
+            return movie.genre.includes(genreFilter) && movie.title.includes(titleFilter);
+          }
         } else if (genreFilter != false) {
-          return movie.genre == genreFilter;
+          if (movie.poster) {
+            return movie.genre.includes(genreFilter);
+          }
         } else if (titleFilter != false) {
           return movie.title.includes(titleFilter);
         } else {
@@ -53,37 +53,57 @@ export default function FavMoviesList({ user, updateUserData }) {
 
   return (
     <>
-      <button className="btn btn-secondary" onClick={() => setSearchOptions(!searchOptions)}>
+      <button className="btn btn-secondary mt-2" onClick={() => setSearchOptions(!searchOptions)}>
         Ieškoti filmų
       </button>{" "}
       {searchOptions && (
         <div className="search-options container ">
-          <div className="row text-start">
-            <div className="col-6 offset-3">
-              <select className="form-control" onChange={(e) => setGenreFilter(e.target.options[e.target.options.selectedIndex].value)}>
-                <option value="false">--Pasirinkite žanrą--</option>
-                <option value="action">Veiksmo</option>
-                <option value="comedy">Komedija</option>
-                <option value="horror">Siaubo</option>
-                <option value="drama">Drama</option>
-                <option value="thriller">Trileris</option>
-              </select>
+          <form>
+            <div className="row text-start">
+              <div className="col-6 offset-3 mt-4">
+                <select className="form-control" onChange={(e) => setGenreFilter(e.target.options[e.target.options.selectedIndex].value)}>
+                  <option value="false">--Pasirinkite žanrą--</option>
+                  <option value="action">Veiksmo</option>
+                  <option value="comedy">Komedija</option>
+                  <option value="horror">Siaubo</option>
+                  <option value="drama">Drama</option>
+                  <option value="thriller">Trileris</option>
+                </select>
+              </div>
+              <div className="col-6 offset-3 mt-2">
+                {" "}
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Filmo pavadinimas"
+                  onChange={(e) => {
+                    setTitleFilter(e.target.value);
+                    console.log(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="col-6 offset-3 mt-2">
+                <button
+                  type="reset"
+                  onClick={() => {
+                    {
+                      setGenreFilter(false);
+                      setTitleFilter(false);
+                      // Reset forms
+                      //console.log(document.forms[0]);
+                      //   document.forms[0].reset();
+                      //   document.forms[1].reset();
+                    }
+                  }}
+                  className="btn btn-danger"
+                >
+                  Anuliuoti paiešką
+                </button>
+              </div>
+              <div className="col-6 offset-3 mt-2 mb-2 fs-4">Rasta filmų: {displayMovies.length}</div>
+              <hr />
             </div>
-            <div className="col-6 offset-3">
-              {" "}
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Filmo pavadinimas"
-                onChange={(e) => {
-                  setTitleFilter(e.target.value);
-                  console.log(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-6 offset-3 mt-2 mb-2 fs-4">Rasta filmų: {displayMovies.length}</div>
-            <hr />
-          </div>
+          </form>
         </div>
       )}
       <div className="moviesList-container container mt-5">{displayMovies}</div>

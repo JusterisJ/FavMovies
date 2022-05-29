@@ -20,7 +20,6 @@ export default function Movie({ movie, userId, updateUserData }) {
       if (isConfirm) {
         movie.poster
           ? unlikeMovie(userId, movie._id).then(() => {
-              console.log(movie);
               updateUserData(userId);
               swal({
                 text: "Ištrinta",
@@ -30,7 +29,6 @@ export default function Movie({ movie, userId, updateUserData }) {
               });
             })
           : deleteFavMovie(userId, movie._id).then(() => {
-              console.log(movie);
               updateUserData(userId);
               swal({
                 text: "Ištrinta",
@@ -39,9 +37,6 @@ export default function Movie({ movie, userId, updateUserData }) {
                 timer: 2000,
               });
             });
-        // setTimeout(() => {
-        //   updateUserData(userId);
-        // }, 100);
       }
     });
   }

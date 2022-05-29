@@ -22,28 +22,12 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// exports.createUser = async (req, res) => {
-//   try {
-//     const result = await Users.create(req.body);
-
-//     res.status(200).json({
-//       status: "success",
-//       data: result,
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: "fail",
-//       message: err,
-//     });
-//   }
-// };
 exports.createUser = async (req, res) => {
-  console.log(`a`);
   try {
     const token = jwt.sign({ name: req.body.name }, "labas", {
       expiresIn: "90d",
     });
-    console.log(token);
+
     const newUser = await Users.create({
       token: token,
       name: req.body.name,
@@ -51,9 +35,6 @@ exports.createUser = async (req, res) => {
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
     });
-
-    console.log("Signup tokenas");
-    console.log(token);
 
     res.status(200).json({
       status: "success",
@@ -147,7 +128,6 @@ exports.getEmail = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  console.log(req.params.id);
   try {
     const result = await Users.findById(req.params.id);
 
@@ -215,7 +195,6 @@ exports.updateFavMovie = async (req, res) => {
   }
 };
 exports.likeMovie = async (req, res) => {
-  console.log(`liking movie`);
   try {
     const result = await Users.findOneAndUpdate({ _id: req.params.id }, { $push: { likedMovies: { id: req.params.movieId } } });
     res.status(200).json({
@@ -230,7 +209,6 @@ exports.likeMovie = async (req, res) => {
   }
 };
 exports.unlikeMovie = async (req, res) => {
-  console.log(`UNLIKING`);
   try {
     const result = await Users.findOneAndUpdate(
       {

@@ -17,7 +17,7 @@ export default function AllMoviesList() {
         if (genreFilter != false && titleFilter != false) {
           return movie.genre.includes(genreFilter) && movie.title.includes(titleFilter);
         } else if (genreFilter != false) {
-          return movie.genre == genreFilter;
+          return movie.genre.includes(genreFilter);
         } else if (titleFilter != false) {
           return movie.title.includes(titleFilter);
         } else {
@@ -36,35 +36,52 @@ export default function AllMoviesList() {
       </button>{" "}
       {searchOptions && (
         <div className="search-options container ">
-          <div className="row ">
-            <div className="col-7 ps-0">
-              <select className="form-control mt-2" style={{ width: "70%" }} onChange={(e) => setGenreFilter(e.target.options[e.target.options.selectedIndex].value)}>
-                <option value="false">--Pasirinkite žanrą--</option>
-                <option value="action">Veiksmo</option>
-                <option value="comedy">Komedija</option>
-                <option value="horror">Siaubo</option>
-                <option value="drama">Drama</option>
-                <option value="thriller">Trileris</option>
-              </select>
-            </div>
-            <div className="col-7 ps-0 ">
-              {" "}
-              <input
-                className="form-control mt-3"
-                type="text"
-                placeholder="Filmo pavadinimas"
-                style={{ width: "70%" }}
-                onChange={(e) => {
-                  setTitleFilter(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-6 ps-0  mt-3 mb-4">
-              <button className="btn btn-danger">Anuliuoti paiešką</button>
-            </div>
+          <form>
+            <div className="row ">
+              <div className="col-7 ps-0">
+                <select className="form-control mt-2" style={{ width: "70%" }} onChange={(e) => setGenreFilter(e.target.options[e.target.options.selectedIndex].value)}>
+                  <option value="false">--Pasirinkite žanrą--</option>
+                  <option value="action">Veiksmo</option>
+                  <option value="comedy">Komedija</option>
+                  <option value="horror">Siaubo</option>
+                  <option value="drama">Drama</option>
+                  <option value="thriller">Trileris</option>
+                </select>
+              </div>
+              <div className="col-7 ps-0 ">
+                {" "}
+                <input
+                  className="form-control mt-3"
+                  type="text"
+                  placeholder="Filmo pavadinimas"
+                  style={{ width: "70%" }}
+                  onChange={(e) => {
+                    setTitleFilter(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="col-6 ps-0  mt-3 mb-4">
+                <button
+                  type="reset"
+                  onClick={() => {
+                    {
+                      setGenreFilter(false);
+                      setTitleFilter(false);
+                      // Reset forms
+                      //console.log(document.forms[0]);
+                      //   document.forms[0].reset();
+                      //   document.forms[1].reset();
+                    }
+                  }}
+                  className="btn btn-danger"
+                >
+                  Anuliuoti paiešką
+                </button>
+              </div>
 
-            <hr />
-          </div>
+              <hr />
+            </div>
+          </form>
         </div>
       )}
       <h3> Rasta filmų: {displayMovies.length}</h3>

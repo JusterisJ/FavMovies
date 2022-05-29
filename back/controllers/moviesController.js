@@ -2,7 +2,6 @@ const { json } = require("express");
 const Movies = require("../models/movieModel");
 
 exports.getAllMovies = async (req, res) => {
-  console.log(`movies`);
   try {
     const movies = await Movies.find();
     res.status(200).json({
@@ -51,8 +50,6 @@ exports.deleteMovie = async (req, res) => {
 };
 
 exports.editMovie = async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
   try {
     const result = await Movies.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({

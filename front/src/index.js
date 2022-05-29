@@ -25,7 +25,7 @@ root.render(
             {/* Private Routes */}
             <Route element={<ProtectedRoutes />}>
               <Route element={<App />}>
-                <Route element={<ProtectedRoutes roleRequired="159753" />}>
+                <Route element={<ProtectedRoutes roleRequired="admin" />}>
                   <Route path="/admin" element={<Admin />} />
                 </Route>
                 <Route path="/allMovies" element={<AllMovies />} />

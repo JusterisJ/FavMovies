@@ -24,7 +24,6 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
     }
   }
   function addMovie(data) {
-    console.log(data.releaseDate);
     if (genreArray.length == 0) {
       swal({
         text: "Pasirinkite bent 1 žanrą",
@@ -35,7 +34,7 @@ export default function AddNewMovie({ setShowAddMovieForm }) {
     }
 
     data.genre = genreArray;
-    console.log(data);
+
     createMovie(data)
       .then(() => {
         getMovies();

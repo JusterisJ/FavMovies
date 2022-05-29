@@ -11,7 +11,7 @@ export default function FavMovies() {
   return (
     <div className="favMovies-container">
       <AddNewMovie id={user._id} updateUserData={updateUserData} />
-      <h2>Mano mėgstamiausi filmai</h2>
+      <h2 className="mt-4">Mano mėgstamiausi filmai</h2>
       <FavMoviesList user={user} updateUserData={updateUserData} />
     </div>
   );
