@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { useGlobalMoviesContext } from "../context/MoviesContext";
@@ -67,10 +67,6 @@ export default function AllMoviesList() {
                     {
                       setGenreFilter(false);
                       setTitleFilter(false);
-                      // Reset forms
-                      //console.log(document.forms[0]);
-                      //   document.forms[0].reset();
-                      //   document.forms[1].reset();
                     }
                   }}
                   className="btn btn-danger"

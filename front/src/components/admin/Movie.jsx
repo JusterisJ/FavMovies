@@ -10,13 +10,6 @@ export default function Movie({ movie }) {
   const { getMovies } = useGlobalMoviesContext();
 
   //TODO make better, .replace in cycle?
-  function translateGenres(arr) {
-    let translated = [];
-    for (var i = 0; i < arr.length; i++) {
-      translated[i] = arr[i].replace("action", "Veiksmo").replace("horror", "Siaubo").replace("comedy", "Komedija").replace("drama", "Drama").replace("thriller", "Trileris");
-    }
-    return translated;
-  }
 
   return (
     <div className="col-12">

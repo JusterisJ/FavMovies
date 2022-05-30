@@ -89,10 +89,6 @@ export default function FavMoviesList({ user, updateUserData }) {
                     {
                       setGenreFilter(false);
                       setTitleFilter(false);
-                      // Reset forms
-                      //console.log(document.forms[0]);
-                      //   document.forms[0].reset();
-                      //   document.forms[1].reset();
                     }
                   }}
                   className="btn btn-danger"

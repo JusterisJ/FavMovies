@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BsTrash, BsPencil } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 import EditForm from "./EditForm";
 
 export default function MovieInfo({ movie, userId, updateUserData }) {
@@ -28,7 +28,7 @@ export default function MovieInfo({ movie, userId, updateUserData }) {
                   <p className="card-text">{movie.description}</p>
                   <p className="card-text">Trukmė: {movie.length} min.</p>
                   <p className="card-text">Režisierius: {movie.director}</p>
-                  <p className="card-text">Išleista: {movie.releaseDate} </p>
+                  <p className="card-text">Išleista: {movie.releaseDate.slice(0, 10)} </p>
                 </div>
               </div>
             </div>

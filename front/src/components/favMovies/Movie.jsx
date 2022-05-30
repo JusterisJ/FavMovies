@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { BsTrash, BsPencil } from "react-icons/bs";
-import { FiMoreHorizontal } from "react-icons/fi";
-import { ImArrowLeft2 } from "react-icons/im";
+import { BsTrash } from "react-icons/bs";
 import { deleteFavMovie, unlikeMovie } from "../../api/library/UsersAPI";
 import swal from "sweetalert";
-import EditForm from "./EditForm";
 import MovieInfo from "./MovieInfo";
 
 export default function Movie({ movie, userId, updateUserData }) {
   const [showMovieInfo, setShowMovieInfo] = useState(false);
-  const [editForm, setEditForm] = useState(false);
 
   function deleteMovie() {
     swal({
@@ -51,9 +47,6 @@ export default function Movie({ movie, userId, updateUserData }) {
             </button>
           </div>
           <div className="col-3 text-end">
-            {/* <button className="movie-button" onClick={() => setEditForm(!editForm)}>
-              <BsPencil color="#3a3845" fontSize="1.5em" />
-            </button> */}
             <button
               className="movie-button"
               onClick={() => {
